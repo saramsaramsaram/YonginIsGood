@@ -2,8 +2,6 @@ import React from "react";
 import { useCart } from "../context/CartContext";
 import { categories } from "../data/products";
 
-import logo from "../images/yongin-logo.svg";
-
 export default function Header({
   activeCategory,
   setActiveCategory,
@@ -23,7 +21,7 @@ export default function Header({
             setSearchQuery("");
           }}
         >
-          <img src={logo} alt="Yongin Logo" className="logo-img" />
+          <img src="/images/yongin-logo.svg" alt="용인 굿즈샵 로고" className="logo-img" />
           <h1 className="logo-title">용인 굿즈샵</h1>
         </div>
 
