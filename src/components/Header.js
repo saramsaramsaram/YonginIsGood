@@ -19,7 +19,7 @@ export default function Header({
         <div
           className="logo-section"
           onClick={() => {
-            setActiveCategory("All");
+            setActiveCategory("전체");
             setSearchQuery("");
           }}
         >
