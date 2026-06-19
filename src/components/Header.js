@@ -8,6 +8,8 @@ export default function Header({
   searchQuery,
   setSearchQuery,
   onCartOpen,
+  onGachaOpen,
+  onHome,
 }) {
   const { cartCount } = useCart();
 
@@ -19,6 +21,7 @@ export default function Header({
           onClick={() => {
             setActiveCategory("전체");
             setSearchQuery("");
+            if (onHome) onHome();
           }}
         >
           <img src="/images/yongin-logo.svg" alt="용인 굿즈샵 로고" className="logo-img" />
@@ -45,6 +48,15 @@ export default function Header({
         </div>
 
         <div className="actions-section">
+          <button
+            className="gacha-toggle-btn"
+            onClick={onGachaOpen}
+            aria-label="Open Random Gacha"
+          >
+            <span className="gacha-icon">🎰</span>
+            <span className="gacha-text">랜덤 뽑기</span>
+          </button>
+
           <button
             className="cart-toggle-btn"
             onClick={onCartOpen}
