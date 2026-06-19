@@ -4,7 +4,7 @@ import { products } from "../data/products";
 export default function ProductList({ activeCategory, searchQuery }) {
   const filteredProducts = products.filter((product) => {
     const categoryMatch =
-      activeCategory === "All" || product.category === activeCategory;
+      activeCategory === "전체" || product.category === activeCategory;
 
     const searchMatch = product.name
       .toLowerCase()
