@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState, useEffect, useRef } from "r
 
 const CartContext = createContext();
 
+// 가격을 항상 숫자로 정규화 (옛 데이터의 "10,000" 같은 문자열도 처리)
+const normalizePrice = (price) => {
+  if (typeof price === "number") return price;
+  const parsed = Number(String(price).replace(/[^0-9.]/g, ""));
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) throw new Error("useCart must be used within a CartProvider");
@@ -11,7 +18,11 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem("yongin_goods_cart") || "[]");
+      const stored = JSON.parse(localStorage.getItem("yongin_goods_cart") || "[]");
+      // 옛 형식(문자열 가격 등)으로 저장된 항목을 정리
+      return stored
+        .filter((item) => item && item.id != null)
+        .map((item) => ({ ...item, price: normalizePrice(item.price) }));
     } catch {
       return [];
     }
@@ -46,15 +57,16 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = (product, quantity = 1) => {
+    const normalized = { ...product, price: normalizePrice(product.price) };
     setCartItems((prev) => {
-      const existingItem = prev.find((i) => i.id === product.id);
+      const existingItem = prev.find((i) => i.id === normalized.id);
       const newQuantity = existingItem ? existingItem.quantity + quantity : quantity;
 
-      if (!validateStock(product, newQuantity)) return prev;
+      if (!validateStock(normalized, newQuantity)) return prev;
 
       return existingItem
-        ? prev.map((i) => (i.id === product.id ? { ...i, quantity: newQuantity } : i))
-        : [...prev, { ...product, quantity }];
+        ? prev.map((i) => (i.id === normalized.id ? { ...i, quantity: newQuantity } : i))
+        : [...prev, { ...normalized, quantity }];
     });
   };
 
