@@ -167,11 +167,38 @@ body {
    CARD
 ========================= */
 .product-card {
+  position: relative;
   background: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: 0.25s;
+}
+
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  background: #fb8500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.product-badge.badge-인기 {
+  background: #ff006e;
+}
+
+.product-badge.badge-신상 {
+  background: #2bb673;
+}
+
+.product-badge.badge-한정 {
+  background: #8338ec;
 }
 
 .product-card:hover {

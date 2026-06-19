@@ -10,7 +10,11 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="product-card">
-      {product.tag && <span className="product-tag">{product.tag}</span>}
+      {product.badge && (
+        <span className={`product-badge badge-${product.badge}`}>
+          {product.badge}
+        </span>
+      )}
 
       <img src={product.image} alt={product.name} className="product-image" />
 

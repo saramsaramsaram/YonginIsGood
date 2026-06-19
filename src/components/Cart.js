@@ -28,7 +28,7 @@ export default function Cart({ isOpen, onClose }) {
         {cartItems.length > 0 && (
           <div className="cart-footer">
             <div className="cart-total">
-              <span>총 금액</span>
+              <span>총 금액 </span>
 
               <strong>₩{cartTotal.toLocaleString()}</strong>
             </div>
