@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const CartContext = createContext();
+const CART_STORAGE_KEY = "yongin_goods_cart";
 
 // 가격을 항상 숫자로 정규화 (옛 데이터의 "10,000" 같은 문자열도 처리)
 const normalizePrice = (price) => {
@@ -18,7 +19,7 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
     try {
-      const stored = JSON.parse(localStorage.getItem("yongin_goods_cart") || "[]");
+      const stored = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "[]");
       // 옛 형식(문자열 가격 등)으로 저장된 항목을 정리
       return stored
         .filter((item) => item && item.id != null)
@@ -32,7 +33,7 @@ export const CartProvider = ({ children }) => {
   const prevCartCountRef = useRef(0);
 
   useEffect(() => {
-    localStorage.setItem("yongin_goods_cart", JSON.stringify(cartItems));
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);

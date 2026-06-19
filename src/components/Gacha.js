@@ -10,6 +10,7 @@ export default function Gacha({ onBack }) {
   const { addToCart } = useCart();
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState(null);
+  const ROLL_DURATION = 1500; // 뽑기 연출 시간(ms)
 
   const handleDraw = () => {
     if (rolling) return;
@@ -20,7 +21,7 @@ export default function Gacha({ onBack }) {
     setTimeout(() => {
       setResult(pickProduct());
       setRolling(false);
-    }, 1500);
+    }, ROLL_DURATION);
   };
 
   return (

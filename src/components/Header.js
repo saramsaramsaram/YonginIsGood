@@ -79,15 +79,7 @@ export default function Header({
               className={`category-tab-btn ${activeCategory === category ? "active" : ""}`}
               onClick={() => setActiveCategory(category)}
             >
-              {category === "전체"
-                ? "전체"
-                : category === "옷"
-                  ? "옷"
-                  : category === "모자"
-                    ? "모자"
-                    : category === "포토카드"
-                      ? "포토카드"
-                      : category}
+              {category}
             </button>
           ))}
         </div>

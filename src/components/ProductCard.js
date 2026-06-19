@@ -1,12 +1,7 @@
 import { useCart } from "../context/CartContext";
-import { useCallback } from "react";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
-
-  const handleAddToCart = useCallback(() => {
-    addToCart(product);
-  }, [product, addToCart]);
 
   return (
     <div className="product-card">
@@ -28,7 +23,7 @@ export default function ProductCard({ product }) {
             ₩{product.price.toLocaleString()}
           </span>
 
-          <button className="add-cart-btn" onClick={handleAddToCart}>
+          <button className="add-cart-btn" onClick={() => addToCart(product)}>
             담기
           </button>
         </div>
