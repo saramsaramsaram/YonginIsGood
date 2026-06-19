@@ -7,7 +7,7 @@ import { CartProvider } from "./context/CartContext";
 import "./App.css";
 
 function AppInner() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("전체");
   const [searchQuery, setSearchQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
   const { toast, handleToastClose } = useCart();
