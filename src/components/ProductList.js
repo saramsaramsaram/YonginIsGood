@@ -11,9 +11,10 @@ export default function ProductList() {
         ? product.badge === "인기"
         : product.category === activeCategory);
 
+    // 검색어 앞뒤 공백 제거(.trim())로 " 맥북 " 같은 입력도 정확히 매칭
     const searchMatch = product.name
       .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+      .includes(searchQuery.trim().toLowerCase());
 
     return categoryMatch && searchMatch;
   });
