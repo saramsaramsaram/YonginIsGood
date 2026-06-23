@@ -1,17 +1,17 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { categories } from "../data/products";
+import { useFilter } from "../context/FilterContext";
 
-export default function Header({
-  activeCategory,
-  setActiveCategory,
-  searchQuery,
-  setSearchQuery,
-  onCartOpen,
-  onGachaOpen,
-  onHome,
-}) {
+export default function Header({ onCartOpen, onGachaOpen, onHome }) {
   const { cartCount } = useCart();
+  const {
+    activeCategory,
+    setActiveCategory,
+    searchQuery,
+    setSearchQuery,
+    resetFilters,
+  } = useFilter();
 
   return (
     <header className="shop-header">
@@ -19,8 +19,7 @@ export default function Header({
         <div
           className="logo-section"
           onClick={() => {
-            setActiveCategory("전체");
-            setSearchQuery("");
+            resetFilters();
             if (onHome) onHome();
           }}
         >

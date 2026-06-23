@@ -1,7 +1,9 @@
 import ProductCard from "./ProductCard";
 import { products } from "../data/products";
+import { useFilter } from "../context/FilterContext";
 
-export default function ProductList({ activeCategory, searchQuery }) {
+export default function ProductList() {
+  const { activeCategory, searchQuery } = useFilter();
   const filteredProducts = products.filter((product) => {
     const categoryMatch =
       activeCategory === "전체" ||
