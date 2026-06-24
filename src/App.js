@@ -6,10 +6,9 @@ import Cart from "./components/Cart";
 import Gacha from "./components/Gacha";
 import { CartProvider } from "./context/CartContext";
 import "./App.css";
+import { FilterProvider } from "./context/FilterContext";
 
 function AppInner() {
-  const [activeCategory, setActiveCategory] = useState("전체");
-  const [searchQuery, setSearchQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
   const [view, setView] = useState("shop");
   const { toast, handleToastClose } = useCart();
@@ -17,10 +16,6 @@ function AppInner() {
   return (
     <div className="App">
       <Header
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         onCartOpen={() => setCartOpen(true)}
         onGachaOpen={() => setView("gacha")}
         onHome={() => setView("shop")}
@@ -31,8 +26,6 @@ function AppInner() {
           <Gacha onBack={() => setView("shop")} />
         ) : (
           <ProductList
-            activeCategory={activeCategory}
-            searchQuery={searchQuery}
           />
         )}
       </main>
@@ -51,7 +44,9 @@ function AppInner() {
 function App() {
   return (
     <CartProvider>
-      <AppInner />
+      <FilterProvider>
+        <AppInner />
+      </FilterProvider>
     </CartProvider>
   );
 }

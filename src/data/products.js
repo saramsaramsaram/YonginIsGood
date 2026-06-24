@@ -220,6 +220,7 @@ export const products = [
 
 export const categories = [
   "전체",
+  "인기",
   "옷",
   "모자",
   "포토카드",

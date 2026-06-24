@@ -1,17 +1,20 @@
 import ProductCard from "./ProductCard";
 import { products } from "../data/products";
+import { useFilter } from "../context/FilterContext";
 
-export default function ProductList({ activeCategory, searchQuery }) {
+export default function ProductList() {
+  const { activeCategory, searchQuery } = useFilter();
   const filteredProducts = products.filter((product) => {
     const categoryMatch =
-      activeCategory === "전체" || product.category === activeCategory;
-    // 검색어 앞뒤 공백 제거(.trim()) 추가
-    // AI가 생성한 기존 코드는 사용자가 실수로 검색어 앞뒤에 공백을 넣었을 때(예: " 맥북 ")
-    // 올바른 상품을 찾지 못하는 아쉬움이 있었습니다.
-    // 우리 팀의 꼼꼼한 UX 기준에 맞춰, 검색 조건 비교 전에 .trim()을 적용하여 검색 정확도를 높였습니다.
+      activeCategory === "전체" ||
+      (activeCategory === "인기"
+        ? product.badge === "인기"
+        : product.category === activeCategory);
+
+    // 검색어 앞뒤 공백 제거(.trim())로 " 맥북 " 같은 입력도 정확히 매칭
     const searchMatch = product.name
       .toLowerCase()
-      .includes(searchQuery.trim().toLowerCase()); // 기존: searchQuery.toLowerCase()
+      .includes(searchQuery.trim().toLowerCase());
 
     return categoryMatch && searchMatch;
   });
